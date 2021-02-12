@@ -32,8 +32,8 @@ Next, you can use `sha256sum` to verify the archive's authenticity and integrity
 sha256sum <^>go1.15.8.linux-amd64.tar.gz<^>
 ```
 
+_sha256sum Output_
 ```
-[secondary_label sha256sum Output]
 <^>d3379c32a90fdf9382166f8f48034c459a8cc433730bc9476d39d9082c94583b<^>  go1.15.8.linux-amd64.tar.gz
 ```
 
@@ -101,8 +101,8 @@ To verify this has been successful, run the `go env` command and look for the `G
 go env
 ```
 
+_go env output_
 ```
-[secondary_label go env Output]
 GO111MODULE="on"  
 GOARCH="amd64"  
 GOBIN=""  
