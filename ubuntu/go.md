@@ -15,20 +15,20 @@ This tutorial assumes that you have access to an Ubuntu system later than 16.04,
 
 In this step we will connect to your Ubuntu system, download an archive of the latest version of Go from the [Go website](https://golang.org), extract it, and move the extracted `go` folder from your `/tmp` directory to your `/usr/local` directory as a versioned folder.
 
-```command
+```bash
 ssh <^>user<^>@<^>your_system_address<^>
 ```
 
 In order to install Go, you’ll need to grab the latest version from [the official Go downloads page](https://golang.org/dl/). On the site you can find the URL for the current binary release’s archive, along with its *SHA256 Checksum*.
 
-```command
+```bash
 cd /tmp
 wget https://golang.org/dl/<^>go1.15.8.linux-amd64.tar.gz<^>
 ```
 
 Next, you can use `sha256sum` to verify the archive's authenticity and integrity:
 
-```command 
+```bash 
 sha256sum <^>go1.15.8.linux-amd64.tar.gz<^>
 ```
 
@@ -41,7 +41,7 @@ This will output a string like the one highlighted in the above output, which ca
 
 Next, extract the contents of the archive using `tar`
 
-```command
+```bash
 tar xvf <^>go1.15.8.linux-amd64.tar.gz<^>
 ```
 
@@ -51,7 +51,7 @@ You should now have a directory called `go` in your `/tmp` directory.
 
 Now we will recursively change the owner and group of the `go` directory and its content to **root** and move it to `/usr/local`, renaming it based on the version as we do.
 
-```command
+```bash
 sudo chown -R root:root ./go
 sudo mv ./go /usr/local/<^>go1.15.8<^>
 ```
@@ -65,7 +65,7 @@ In this step we will create a symbolic link from the versioned folder in `/usr/l
 
 First, we will create a symbolic link in `/usr/local` that can be used to change versions of `go` in the future.
 
-```command
+```bash
 ln -s /usr/local/<^>go1.15.8<^> /usr/local/go
 ```
 
@@ -73,14 +73,14 @@ Here the _link_ command `ln` is given the `-s` flag, telling it to make a symbol
 
 Next, we will create symbolic links in `/usr/local/bin` that point to the `go` and `gofmt` binaries under the symbolic link `go` folder we created in [Step 1](#step-1-—-installing-go)
 
-```command
+```bash
 ln -s /usr/local/go/bin/go /usr/local/bin/go
 ln -s /usr/local/go/bin/gofmt /usr/local/bin/gofmt
 ```
 
 With all these symbolic links created, when you need to update the version of Go you are using in the future, you can simply follow [Step 1](#step-1-—-installing-go) and then remove the symbolic link to the versioned `go` folder, and recreate it to point at the new versioned `go` folder.
 
-```command
+```bash
 rm /usr/local/go
 ln -s /usr/local/<^>go1.16.0<^> /usr/local/go
 ```
@@ -91,13 +91,13 @@ In this step we will enable [Go Modules](https://blog.golang.org/using-go-module
 
 To enable Go Modules, all you need to do is set the environment variable `GO111MODULE` to `on`
 
-```command
+```bash
 printf "\nGO111MODULE=on\n" ~/.profile
 ```
 
 To verify this has been successful, run the `go env` command and look for the `GO111MODULE` environment variable in the output:
 
-```command
+```bash
 go env
 ```
 
