@@ -16,25 +16,25 @@ This tutorial assumes that you have access to an Ubuntu system later than 16.04,
 In this step we will connect to your Ubuntu system, download an archive of the latest version of Go from the [Go website](https://golang.org), extract it, and move the extracted `go` folder from your `/tmp` directory to your `/usr/local` directory as a versioned folder.
 
 ```bash
-ssh <^>user<^>@<^>your_system_address<^>
+ssh user@your_system_address
 ```
 
 In order to install Go, you’ll need to grab the latest version from [the official Go downloads page](https://golang.org/dl/). On the site you can find the URL for the current binary release’s archive, along with its *SHA256 Checksum*.
 
 ```bash
 cd /tmp
-wget https://golang.org/dl/<^>go1.15.8.linux-amd64.tar.gz<^>
+wget https://golang.org/dl/go1.15.8.linux-amd64.tar.gz
 ```
 
 Next, you can use `sha256sum` to verify the archive's authenticity and integrity:
 
 ```bash 
-sha256sum <^>go1.15.8.linux-amd64.tar.gz<^>
+sha256sum go1.15.8.linux-amd64.tar.gz
 ```
 
 _sha256sum Output_
 ```
-<^>d3379c32a90fdf9382166f8f48034c459a8cc433730bc9476d39d9082c94583b<^>  go1.15.8.linux-amd64.tar.gz
+d3379c32a90fdf9382166f8f48034c459a8cc433730bc9476d39d9082c94583b  go1.15.8.linux-amd64.tar.gz
 ```
 
 This will output a string like the one highlighted in the above output, which can be compared the the *SHA256 Checksum* from the download website.
@@ -42,7 +42,7 @@ This will output a string like the one highlighted in the above output, which ca
 Next, extract the contents of the archive using `tar`
 
 ```bash
-tar xvf <^>go1.15.8.linux-amd64.tar.gz<^>
+tar xvf go1.15.8.linux-amd64.tar.gz
 ```
 
 Here, the `x` flag tells `tar` to extract the file, `v` tells it to be verbose by listing the files being extracted, and `f` tells it which file to extract from.
@@ -53,7 +53,7 @@ Now we will recursively change the owner and group of the `go` directory and its
 
 ```bash
 sudo chown -R root:root ./go
-sudo mv ./go /usr/local/<^>go1.15.8<^>
+sudo mv ./go /usr/local/go1.15.8
 ```
 
 Next, 
@@ -66,10 +66,10 @@ In this step we will create a symbolic link from the versioned folder in `/usr/l
 First, we will create a symbolic link in `/usr/local` that can be used to change versions of `go` in the future.
 
 ```bash
-ln -s /usr/local/<^>go1.15.8<^> /usr/local/go
+ln -s /usr/local/go1.15.8 /usr/local/go
 ```
 
-Here the _link_ command `ln` is given the `-s` flag, telling it to make a symbolic link from `/usr/local/go` pointing to `/usr/local/<^>go1.15.8<^>`. Symbolic links are a great way of creating aliases that point from one part of a file system to another part of a file system.
+Here the _link_ command `ln` is given the `-s` flag, telling it to make a symbolic link from `/usr/local/go` pointing to `/usr/local/go1.15.8`. Symbolic links are a great way of creating aliases that point from one part of a file system to another part of a file system.
 
 Next, we will create symbolic links in `/usr/local/bin` that point to the `go` and `gofmt` binaries under the symbolic link `go` folder we created in [Step 1](#step-1-—-installing-go)
 
@@ -82,7 +82,7 @@ With all these symbolic links created, when you need to update the version of Go
 
 ```bash
 rm /usr/local/go
-ln -s /usr/local/<^>go1.16.0<^> /usr/local/go
+ln -s /usr/local/go1.16.0 /usr/local/go
 ```
 
 ## Step 3 — Configuring your environment
