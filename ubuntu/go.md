@@ -2,7 +2,7 @@
 
 # How To Install Go on Any Version of Ubuntu
 
-### Introduction
+## Introduction
 
 [Go](https://golang.org) is a modern programming language developed at Google. It is increasingly popular for many applications ([docker](https://github.com/docker/docker-ce), [kubernetes](https://github.com/kubernetes/kubernetes), and more) and at many companies, and offers a robust set of libraries. This tutorial will walk you through downloading and installing the latest version of Go (Go 1.15 at the time of this article’s publication).
 
@@ -29,7 +29,7 @@ wget https://golang.org/dl/<go1.15.8.linux-amd64.tar.gz>
 
 Next, you can use `sha256sum` to verify the archive's authenticity and integrity:
 
-```bash 
+```bash
 sha256sum <go1.15.8.linux-amd64.tar.gz>
 ```
 
@@ -57,7 +57,7 @@ sudo chown -R root:root ./go
 sudo mv ./go /usr/local/<go1.15.8>
 ```
 
-Next, 
+Next,
 
 
 ## Step 2 — Installing Go
@@ -104,38 +104,45 @@ go env
 
 _go env output_
 ```
-GO111MODULE="on"  
-GOARCH="amd64"  
-GOBIN=""  
-GOCACHE="/home/superadmin/.cache/go-build"  
-GOENV="/home/superadmin/.config/go/env"  
-GOEXE=""  
-GOFLAGS=""  
-GOHOSTARCH="amd64"  
-GOHOSTOS="linux"  
-GOINSECURE=""  
-GOMODCACHE="/home/superadmin/go/pkg/mod"  
-GONOPROXY=""  
-GONOSUMDB=""  
-GOOS="linux"  
-GOPATH="/home/superadmin/go"  
-GOPRIVATE=""  
-GOPROXY="https://proxy.golang.org,direct"  
-GOROOT="/usr/local/go"  
-GOSUMDB="sum.golang.org"  
-GOTMPDIR=""  
-GOTOOLDIR="/usr/local/go/pkg/tool/linux_amd64"  
-GCCGO="gccgo"  
-AR="ar"  
-CC="gcc"  
-CXX="g++"  
-CGO_ENABLED="1"  
-GOMOD="/dev/null"  
-CGO_CFLAGS="-g -O2"  
-CGO_CPPFLAGS=""  
-CGO_CXXFLAGS="-g -O2"  
-CGO_FFLAGS="-g -O2"  
-CGO_LDFLAGS="-g -O2"  
-PKG_CONFIG="pkg-config"  
+GO111MODULE="on"
+GOARCH="amd64"
+GOBIN=""
+GOCACHE="/home/superadmin/.cache/go-build"
+GOENV="/home/superadmin/.config/go/env"
+GOEXE=""
+GOFLAGS=""
+GOHOSTARCH="amd64"
+GOHOSTOS="linux"
+GOINSECURE=""
+GOMODCACHE="/home/superadmin/go/pkg/mod"
+GONOPROXY=""
+GONOSUMDB=""
+GOOS="linux"
+GOPATH="/home/superadmin/go"
+GOPRIVATE=""
+GOPROXY="https://proxy.golang.org,direct"
+GOROOT="/usr/local/go"
+GOSUMDB="sum.golang.org"
+GOTMPDIR=""
+GOTOOLDIR="/usr/local/go/pkg/tool/linux_amd64"
+GCCGO="gccgo"
+AR="ar"
+CC="gcc"
+CXX="g++"
+CGO_ENABLED="1"
+GOMOD="/dev/null"
+CGO_CFLAGS="-g -O2"
+CGO_CPPFLAGS=""
+CGO_CXXFLAGS="-g -O2"
+CGO_FFLAGS="-g -O2"
+CGO_LDFLAGS="-g -O2"
+PKG_CONFIG="pkg-config"
 GOGCCFLAGS="-fPIC -m64 -pthread -fmessage-length=0 -fdebug-prefix-map=/tmp/go-build751789766=/tmp/go-build -gno-record-gcc-switches"
 ```
+
+# Simple* One Liner
+```bash
+curl -sX GET "https://api.github.com/repos/golang/go/tags?page=2&per_page=100" | jq -r '[.[].name | match("^go[0-9]+\\.[0-9]+\\.\\d+$") .string ] | .[0]' | xargs -n 1 -I {} sh -c 'wget https://golang.org/dl/{}.linux-amd64.tar.gz && tar xf {}.linux-amd64.tar.gz && sudo chown -R root:root ./go && sudo mv ./go /usr/local/{} && sudo rm /usr/local/go && sudo ln -s /usr/local/{} /usr/local/go'
+```
+
+\* okay, it's not so simple, you need to have gone through the whole install above at least once before, and must have `curl` and `jq` installed on your machine.
